@@ -22,9 +22,9 @@ from PIL import Image
 def load_model():
     """
     Charge le modèle et le tokenizer BERT obtenus après fine-tuning
-    depuis le dossier ./model_save/
+    depuis le dossier ./bert_cola_finetuned/
     """
-    model_path = "./model_save/"
+    model_path = "./bert_cola_finetuned/"
     model = BertForSequenceClassification.from_pretrained(model_path)
     tokenizer = BertTokenizer.from_pretrained(model_path)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
