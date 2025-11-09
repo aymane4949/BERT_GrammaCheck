@@ -1,11 +1,14 @@
-# 🧠 Vérificateur de Grammaire BERT
+```markdown
+# 🧠 Vérificateur Grammatical avec BERT (Fine-tuning sur CoLA)
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![BERT](https://img.shields.io/badge/Modèle-BERT-orange.svg)](https://huggingface.co/bert-base-uncased)
 [![Streamlit](https://img.shields.io/badge/Framework-Streamlit-red.svg)](https://streamlit.io/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## 📋 Table des Matières
+---
+
+## 📘 Table des Matières
 - [Aperçu](#aperçu)
 - [Objectif du Projet](#objectif-du-projet)
 - [Fonctionnalités](#fonctionnalités)
@@ -13,236 +16,230 @@
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Détails du Modèle](#détails-du-modèle)
-- [Technologies Utilisées](#technologies-utilisées)
 - [Résultats](#résultats)
+- [Technologies Utilisées](#technologies-utilisées)
 - [Contribution](#contribution)
 - [Licence](#licence)
 - [Contact](#contact)
+- [Remerciements](#remerciements)
+
+---
 
 ## 🎯 Aperçu
 
-**BERT_GrammaCheck** est une application intelligente basée sur le modèle **BERT** (Bidirectional Encoder Representations from Transformers) qui permet de **vérifier la grammaticalité de phrases en anglais**.
+**BERT Grammar Checker** est une application d'intelligence artificielle basée sur **BERT (Bidirectional Encoder Representations from Transformers)**, fine-tunée sur le dataset **CoLA (Corpus of Linguistic Acceptability)**.
+Elle permet de **déterminer automatiquement si une phrase en anglais est grammaticalement correcte ou non**.
 
-Ce projet comprend deux grandes parties :
-1. Le **fine-tuning du modèle BERT** sur le jeu de données **CoLA (Corpus of Linguistic Acceptability)**
-2. Une **application Streamlit** pour tester le modèle fine-tuné de manière interactive
+Ce projet se compose de deux volets principaux :
+1. **Fine-tuning du modèle BERT** sur le dataset CoLA pour la classification binaire.
+2. **Application Streamlit** permettant de tester le modèle via une interface intuitive et interactive.
+
+---
 
 ## 🚀 Objectif du Projet
 
-L'objectif de ce projet est de démontrer l'utilisation du **fine-tuning** d'un modèle de langage pré-entraîné (BERT) pour une tâche de **classification binaire** :
+Ce projet a pour but de démontrer l'efficacité du **fine-tuning** d'un modèle de langage pré-entraîné pour une tâche NLP spécifique :
+> 🧩 **La détection de la grammaticalité des phrases anglaises.**
 
-> **Déterminer si une phrase en anglais est grammaticalement correcte ou incorrecte.**
+Grâce au fine-tuning sur le dataset **CoLA**, le modèle apprend à distinguer :
+- ✅ les phrases **grammaticalement correctes**
+- ❌ les phrases **grammaticalement incorrectes**
 
-Le système utilise le dataset **CoLA** pour entraîner un classificateur binaire capable d'évaluer l'acceptabilité linguistique des phrases anglaises.
+---
 
 ## ✨ Fonctionnalités
 
-- 🤖 **Modèle BERT fine_tuning** : Entraîné spécifiquement sur le dataset CoLA pour l'évaluation grammaticale
-- 🌐 **Interface Web Interactive** : Application Streamlit conviviale pour des tests en temps réel
-- ⚡ **Inférence Rapide** : Prédictions instantanées de grammaticalité avec scores de confiance
-- 📊 **Classification Binaire** : Identification précise des phrases correctes/incorrectes
-- 💾 **Modèle Pré-entraîné** : Modèle fine-tuné prêt à l'emploi inclus dans le dépôt
-- 🔄 **Entraînement Reproductible** : Notebook Jupyter complet pour l'entraînement et l'évaluation
-- 📈 **Métriques de Performance** : Évaluation détaillée avec accuracy, F1-score et MCC
+- 🤖 **Fine-tuning de BERT** sur CoLA pour la classification binaire
+- ⚡ **Analyse instantanée** des phrases anglaises
+- 🌐 **Interface web Streamlit** simple et élégante
+- 📊 **Résultats clairs** avec indicateurs visuels (✅ / ❌)
+- 💾 **Modèle fine-tuné prêt à l'emploi**
+- 🧠 **Pipeline complet reproductible** (notebook inclus)
+
+---
 
 ## 📁 Structure du Projet
 
-Voici la structure détaillée du dossier :
-
-```
+```bash
 📦 BERT_GrammaCheck/
 │
-├── 📁 model_save/                          # Modèle BERT fine-tuné et tokenizer sauvegardés
-│   ├── config.json                         # Configuration du modèle
-│   ├── model.safetensors                   # Poids du modèle
-│   ├── special_tokens_map.json             # Mapping des tokens spéciaux
-│   ├── tokenizer_config.json               # Configuration du tokenizer
-│   └── vocab.txt                           # Fichier vocabulaire
+├── 📁 bert_cola_finetuned/      # Modèle BERT fine-tuné et tokenizer sauvegardés
+│   ├── config.json
+│   ├── model.safetensors
+│   ├── tokenizer_config.json
+│   ├── vocab.txt
+│   └── special_tokens_map.json
 │
 ├── 📁 notebook_model/
-│   └── bert_cola_fine_tuning.ipynb         # Notebook de fine-tuning du modèle BERT
+│   └── bert_cola_fine_tuning_explained.ipynb   # Notebook complet de fine-tuning
 │
-├── 📁 venv/                                # Environnement virtuel (non suivi par Git)
-│
-├── 📄 app.py                               # Application Streamlit pour tester le modèle
-├── 📄 requirements.txt                     # Dépendances Python nécessaires
-├── 📄 .gitignore                           # Fichiers et dossiers à ignorer par Git
-└── 📄 README.md                            # Documentation complète du projet
+├── 📄 app.py                    # Application Streamlit (interface utilisateur)
+├── 📄 requirements.txt          # Liste des dépendances
+├── 📄 .gitignore
+└── 📄 README.md                 # Documentation du projet
 ```
 
-## 🚀 Installation
+---
+
+## ⚙️ Installation
 
 ### Prérequis
 
-- Python 3.8 ou supérieur
-- pip (gestionnaire de paquets Python)
+- Python 3.8+
+- pip
 - Git
-- Environnement virtuel (recommandé)
+- Jupyter Notebook (pour exécuter le notebook)
+- Navigateur web (pour Streamlit)
 
-### Instructions d'Installation
+### Étapes d'installation
 
 1. **Cloner le dépôt**
+
    ```bash
    git clone https://github.com/Aymanezwikat/BERT_GrammaCheck.git
    cd BERT_GrammaCheck
    ```
 
 2. **Créer un environnement virtuel**
+
    ```bash
-   # Windows
    python -m venv venv
-   venv\Scripts\activate
-   
-   # Linux/MacOS
-   python3 -m venv venv
-   source venv/bin/activate
+   source venv/bin/activate       # Linux / Mac
+   venv\Scripts\activate          # Windows
    ```
 
 3. **Installer les dépendances**
+
    ```bash
    pip install -r requirements.txt
    ```
 
+---
+
 ## 💻 Utilisation
 
-### Partie 1 : Fine-tuning du Modèle BERT
+### 🔹 Étape 1 : Entraînement du modèle (Fine-tuning)
 
-Le notebook `bert_cola_fine_tuning.ipynb` contient le pipeline complet :
-
-1. **Chargement du dataset CoLA**
-2. **Préparation et prétraitement des données**
-3. **Fine-tuning du modèle BERT**
-4. **Évaluation des performances**
-5. **Sauvegarde du modèle** dans `model_save/`
-
-Pour exécuter le notebook :
+Ouvre et exécute le notebook :
 
 ```bash
-jupyter notebook notebook_model/bert_cola_fine_tuning.ipynb
+jupyter notebook notebook_model/bert_cola_fine_tuning_explained.ipynb
 ```
 
-Le modèle final classe une phrase :
-- ✅ **Correcte grammaticalement**
-- ❌ **Incorrecte grammaticalement**
+Le notebook contient :
 
-### Partie 2 : Application Streamlit
+1. Chargement du dataset **CoLA**
+2. Prétraitement et tokenisation
+3. Fine-tuning de BERT
+4. Évaluation des performances
+5. Sauvegarde du modèle dans `bert_cola_finetuned/`
 
-L'application `app.py` permet de tester le modèle via une interface web interactive.
+---
 
-**Lancer l'application :**
+### 🔹 Étape 2 : Lancement de l'application Streamlit
+
+Une fois le modèle entraîné et sauvegardé (ou si vous utilisez le modèle déjà fourni dans `bert_cola_finetuned/`) :
 
 ```bash
 streamlit run app.py
 ```
 
-L'application s'ouvrira automatiquement dans votre navigateur par défaut à l'adresse `http://localhost:8501`
+Puis ouvre le lien :
+👉 `http://localhost:8501`
 
-**Utilisation de l'interface :**
+**Interface utilisateur :**
 
-1. Saisissez une phrase en anglais dans le champ de texte
-2. Cliquez sur le bouton de vérification
-3. Consultez le résultat :
-   - ✅ **Grammaticalement Correcte** : La phrase est bien formée
-   - ❌ **Grammaticalement Incorrecte** : La phrase contient des erreurs grammaticales
+- Saisis une phrase en anglais
+- Clique sur **Analyser**
+- Le résultat s'affichera automatiquement :
+  - ✅ *Phrase grammaticalement correcte*
+  - ❌ *Phrase incorrecte grammaticalement*
+
+---
 
 ## 🔬 Détails du Modèle
 
-### Architecture
+| Élément | Détail |
+|----------|--------|
+| **Architecture** | BERT-base-uncased |
+| **Type de tâche** | Classification binaire |
+| **Dataset** | CoLA (Corpus of Linguistic Acceptability) |
+| **Frameworks** | PyTorch & Hugging Face Transformers |
+| **Optimiseur** | AdamW |
+| **Métriques** | Accuracy, F1-Score, MCC |
 
-- **Modèle de Base** : `bert-base-uncased`
-- **Tâche** : Classification Binaire de Séquences
-- **Dataset** : CoLA (Corpus of Linguistic Acceptability)
-- **Framework** : Hugging Face Transformers + PyTorch
-
-### Pipeline d'Entraînement
-
-1. **Chargement des Données** : Dataset CoLA avec labels de grammaticalité (0/1)
-2. **Tokenisation** : Utilisation du tokenizer BERT avec padding et troncature
-3. **Fine-tuning** : Ajout d'une tête de classification binaire sur BERT pré-entraîné
-4. **Optimisation** : Entraînement avec AdamW et learning rate scheduling
-5. **Évaluation** : Calcul des métriques sur l'ensemble de test
-6. **Sauvegarde** : Export du modèle et du tokenizer
-
-### Métriques de Performance
-
-Le modèle est évalué selon des métriques NLP standard :
-- **Accuracy** : Exactitude globale des prédictions
-- **F1-Score** : Moyenne harmonique de la précision et du recall
-- **Matthews Correlation Coefficient (MCC)** : Métrique de qualité pour classification binaire
-
-## 🛠️ Technologies Utilisées
-
-| Technologie | Version | Utilisation |
-|------------|---------|-------------|
-| **Python** | 3.8+ | Langage de programmation principal |
-| **PyTorch** | Latest | Framework de deep learning |
-| **Transformers** | Hugging Face | Implémentation du modèle BERT |
-| **Streamlit** | Latest | Framework d'application web |
-| **Pandas** | Latest | Manipulation de données |
-| **NumPy** | Latest | Calculs numériques |
-| **Jupyter** | Latest | Développement interactif |
-| **Datasets** | Hugging Face | Chargement du dataset CoLA |
+---
 
 ## 📊 Résultats
 
-Le modèle BERT fine-tuné atteint des performances solides sur l'ensemble de test CoLA :
-- Capacité à identifier les patterns grammaticaux complexes
-- Détection efficace des erreurs de syntaxe
-- Haute précision dans la classification binaire
+Le modèle fine-tuné atteint :
 
-Les métriques détaillées, les courbes d'apprentissage et l'analyse complète sont disponibles dans le notebook d'entraînement `bert_cola_fine_tuning.ipynb`.
+- **Haute précision** sur les phrases grammaticalement correctes
+- **Excellente généralisation** sur les phrases non vues
+- **MCC élevé**, indiquant une performance robuste même sur données déséquilibrées
+
+Les résultats détaillés et les courbes d'apprentissage sont visibles dans le notebook d'entraînement.
+
+---
+
+## 🧰 Technologies Utilisées
+
+| Technologie | Rôle |
+|--------------|------|
+| **Python 3.8+** | Langage principal |
+| **PyTorch** | Framework d'apprentissage profond |
+| **Transformers (Hugging Face)** | Implémentation BERT |
+| **Streamlit** | Interface utilisateur web |
+| **Pandas / NumPy** | Manipulation de données |
+| **Jupyter Notebook** | Environnement interactif |
+| **Datasets (Hugging Face)** | Chargement de CoLA |
+
+---
 
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! N'hésitez pas à soumettre une Pull Request. 
+Les contributions sont encouragées !
+Pour proposer une amélioration :
 
-### Pour contribuer :
+1. Fork le dépôt
+2. Crée une nouvelle branche (`feature/ta_fonctionnalite`)
+3. Commit et push tes modifications
+4. Ouvre une Pull Request 🎯
 
-1. Forkez le dépôt
-2. Créez votre branche de fonctionnalité (`git checkout -b feature/NouvelleFonctionnalite`)
-3. Committez vos changements (`git commit -m 'Ajout d'une nouvelle fonctionnalité'`)
-4. Poussez vers la branche (`git push origin feature/NouvelleFonctionnalite`)
-5. Ouvrez une Pull Request
+**Idées de contributions possibles :**
 
-### Idées de contributions :
+- Support pour d'autres langues
+- Amélioration de l'UI Streamlit
+- Visualisation des scores de confiance
+- Optimisation de la vitesse d'inférence
 
-- Support multilingue (français, espagnol, etc.)
-- Amélioration de l'interface Streamlit
-- Ajout de nouvelles métriques d'évaluation
-- Optimisation des performances
-- Documentation supplémentaire
+---
 
-## 📄 Licence
+## 📜 Licence
 
-Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Ce projet est distribué sous la licence **MIT**.
+Consulte le fichier [LICENSE](LICENSE) pour plus de détails.
+
+---
 
 ## 📧 Contact
 
-**Ayman Ezwikat**
-
-- GitHub : [@Aymanezwikat](https://github.com/Aymanezwikat)
-- Projet : [BERT_GrammaCheck](https://github.com/Aymanezwikat/BERT_GrammaCheck)
+👤 **Ayman Ezwikat**  
+🔗 GitHub : [@Aymanezwikat](https://github.com/Aymanezwikat)  
+💡 Projet : [BERT_GrammaCheck](https://github.com/Aymanezwikat/BERT_GrammaCheck)
 
 ---
 
 ## 🙏 Remerciements
 
-- [Hugging Face](https://huggingface.co/) pour la bibliothèque Transformers et l'écosystème NLP
-- Les créateurs du [Dataset CoLA](https://nyu-mll.github.io/CoLA/) (Corpus of Linguistic Acceptability)
-- Les auteurs du [Paper BERT](https://arxiv.org/abs/1810.04805) : Devlin et al. (2018)
-- La communauté Streamlit pour le framework d'applications web
-
----
-
-## 📚 Ressources Supplémentaires
-
-- [Documentation BERT](https://huggingface.co/docs/transformers/model_doc/bert)
-- [Guide de Fine-tuning](https://huggingface.co/docs/transformers/training)
-- [Dataset CoLA](https://nyu-mll.github.io/CoLA/)
-- [Documentation Streamlit](https://docs.streamlit.io/)
+- [Hugging Face](https://huggingface.co/) – pour la bibliothèque Transformers
+- [Dataset CoLA](https://nyu-mll.github.io/CoLA/) – corpus linguistique d'acceptabilité
+- [Streamlit](https://streamlit.io/) – framework web interactif
+- [Devlin et al., 2018](https://arxiv.org/abs/1810.04805) – auteurs de BERT
 
 ---
 
 <div align="center">
-  <sub>Développé avec ❤️ en utilisant BERT et Streamlit | 2025</sub>
+<sub>🚀 Développé avec ❤️ par Ayman Ezwikat — 2025</sub>
 </div>
+```

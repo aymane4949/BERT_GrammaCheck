@@ -12,7 +12,7 @@ __pycache__/
 *.ipynb_checkpoints/
 
 # Données ou modèles volumineux
-model_save/
+bert_cola_finetuned/
 
 # Fichiers système
 .DS_Store
